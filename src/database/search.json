@@ -1,0 +1,9 @@
+[
+    {
+        "query": ["Chromium based browser", "Arc", "Browser"],
+        "title": "Arc",
+        "description": "Website",
+        "url": "https://www.arc.net/",
+        "priority": 0
+    }
+]
