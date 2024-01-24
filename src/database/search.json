@@ -1,9 +1,16 @@
 [
     {
-        "query": ["Chromium based browser", "Arc", "Browser"],
+        "query": ["Chromium based browser", "Arc", "browser"],
         "title": "Arc",
         "description": "Website",
         "url": "https://www.arc.net/",
         "priority": 0
+    },
+    {
+        "query": ["Charlie", "unedited"],
+        "title": "Arc",
+        "description": "Website",
+        "url": "https://www.unedited.site/",
+        "priority": 1
     }
 ]
