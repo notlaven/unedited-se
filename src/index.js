@@ -1,9 +1,44 @@
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 3001;
 const fs = require("fs");
 const { scryptSync, randomBytes, timingSafeEqual, scrypt } = require("crypto");
+
+const process = require("node:process");
+
+const filename = null;
+
+function logError(error) {
+  if (filename != null) {
+    if (!fs.existsSync(filename)) fs.writeFileSync(filename, "");
+    fs.appendFileSync(filename, error + "\n");
+  }
+}
+
+function logError(error, origin) {
+  if (filename != null) {
+    if (origin == null || typeof origin == "undefined") logError(error);
+    if (!fs.existsSync(filename)) fs.writeFileSync(filename, "");
+    fs.appendFileSync(filename, error + "\n" + origin + "\n");
+  }
+}
+
+process.on("unhandledRejection", async (reason, promise) => {
+  logError(reason);
+});
+process.on("uncaughtException", async (error) => {
+  logError(error);
+});
+process.on("uncaughtExceptionMonitor", async (error, origin) => {
+  logError(error, origin);
+});
+
+module.exports = {
+  setFilePath: function (path) {
+    filename = path;
+  },
+};
 
 app.use(cookieParser());
 
@@ -15,7 +50,7 @@ class PriorityQueue {
   enqueue(item, priority) {
     let added = false;
     for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].priority < priority) {
+      if (this.items[i].priority >= priority) {
         this.items.splice(i, 0, { item, priority });
         added = true;
         break;
@@ -150,20 +185,23 @@ app.listen(port, () => {
 
 function calculatePriority(result, searchQuery) {
   let priority = 0;
+  const title = result.title.toLowerCase();
   for (key in searchQuery) {
     if (Array.isArray(result[key])) {
       priority += result[key].filter((value) =>
-        searchQuery[key].includes(value)
+        searchQuery[key].includes(value.toLowerCase())
       ).length;
     } else {
       priority += result[key] === searchQuery[key] ? 1 : 0;
     }
   }
+  const distance = levenshteinDistance(title, searchQuery.title.toLowerCase());
+  priority += 1 / (distance + 1);
   return priority;
 }
 
 function fuzzySearch(data, query) {
-  const threshold = 1; 
+  const threshold = 0.1;
   const results = data.filter((item) => {
     const similarity = calculateSimilarity(item[key], query);
     const includesQuery = item[key].toLowerCase().includes(query.toLowerCase());
@@ -180,7 +218,33 @@ function calculateSimilarity(str1, str2) {
   return 1 - distance / maxLength;
 }
 
-function levenshteinDistance(str1, str2) {
+function levenshteinDistance(arr1, arr2) {
+  const m = arr1.length;
+  const n = arr2.length;
+  const dp = Array.from({ length: m + 1 }, () =>
+    Array.from({ length: n + 1 }, () => 0)
+  );
+
+  for (let i = 0; i <= m; i++) {
+    for (let j = 0; j <= n; j++) {
+      if (i === 0) {
+        dp[i][j] = j;
+      } else if (j === 0) {
+        dp[i][j] = i;
+      } else {
+        const str1 = arr1[i - 1];
+        const str2 = arr2[j - 1];
+        const distance = levenshteinDistanceHelper(str1, str2);
+        dp[i][j] =
+          distance + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+      }
+    }
+  }
+
+  return dp[m][n];
+}
+
+function levenshteinDistanceHelper(str1, str2) {
   const m = str1.length;
   const n = str2.length;
   const dp = Array.from({ length: m + 1 }, () =>
