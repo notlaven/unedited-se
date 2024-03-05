@@ -1,7 +1,7 @@
 document.getElementById("buttonSearch").addEventListener("click", function () {
   const searchTerm = document.getElementById("searchInput").value.trim();
 
-  const url = `http://localhost:3000/api/search?title=${searchTerm}`;
+  const url = `http://localhost:3000/search?title=${searchTerm}`;
 
   getData(url)
     .then((response) => {

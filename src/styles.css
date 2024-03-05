@@ -1,17 +1,17 @@
 @font-face {
   font-family: "Work Sans";
   font-weight: 400;
-  src: url("../../../Fonts/WorkSans.ttf") format("truetype");
+  src: url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap") format("truetype");
 }
 @font-face {
   font-family: "Work Sans Bold";
   font-weight: 700;
-  src: url("../../../Fonts/worksans-static/WorkSans-Bold.ttf")
+  src: url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap')
     format("truetype");
 }
 @font-face {
   font-family: "Noto Sans Bold";
-  src: url("../../../Fonts/notosans-static/NotoSans-Bold.ttf")
+  src: url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap')
     format("truetype");
 }
 

@@ -26,7 +26,8 @@ function insertData(jsonData) {
         <h2>Title: ${jsonData.data[0].title}</h2>
         <p>Description: ${jsonData.data[0].description}</p>
         <p>URL: <a href="${jsonData.data[0].url}">${jsonData.data[0].title}</a></p>
+        <link rel="stylesheet" href="../styles.css" />
     `;
-
+  
   dataContainer.innerHTML = htmlContent;
 }

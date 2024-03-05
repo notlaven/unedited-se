@@ -177,9 +177,9 @@ app.get('/src/searchResults', (req, res) => {
 })
 
 app.get('/search', (req, res) => {
-  if (req.query == {}) {
+  if (req.query.title == "" || !req.query.title) {
     res.sendFile(path.join(__dirname, '/search.html'))
-  } else {
+  } else if (req.query.title != "") {
     res.sendFile(path.join(__dirname, '/searchResults.html'))
   }
 })
