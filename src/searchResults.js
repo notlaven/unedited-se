@@ -21,7 +21,6 @@ getData(url)
 
 function insertData(jsonData) {
   const dataContainer = document.getElementById("data-container");
-  const response = jsonData;
 
   const htmlContent = `
         <h2>Title: ${jsonData.data[0].title}</h2>
