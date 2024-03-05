@@ -1,8 +1,14 @@
 [
     {
         "keywords": ["Chromium based browser", "Arc", "browser"],
-        "title": "Arcs",
+        "title": "Arc",
         "description": "Website",
         "url": "https://www.arc.net/"
+    },
+    {
+        "keywords": ["AI", "perplexity", "arc"],
+        "title": "Perplexity AI",
+        "description": "AI Model",
+        "url": "https://www.perplexity.ai/"
     }
 ]

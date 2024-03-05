@@ -1,0 +1,84 @@
+@font-face {
+  font-family: "Work Sans";
+  font-weight: 400;
+  src: url("../../../Fonts/WorkSans.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Work Sans Bold";
+  font-weight: 700;
+  src: url("../../../Fonts/worksans-static/WorkSans-Bold.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: "Noto Sans Bold";
+  src: url("../../../Fonts/notosans-static/NotoSans-Bold.ttf")
+    format("truetype");
+}
+
+body {
+  background-color: #eee5e9;
+  padding: 60px;
+}
+
+h1 {
+  -webkit-text-fill-color: #a78a7f;
+  font-family: "Work Sans Bold", "sans-serif";
+}
+
+h2 {
+  font-family: "Work Sans", "sans-serif";
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.homepage-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-first-column {
+  align-items: center;
+}
+
+.homepage-text-first {
+  font-family: "Work Sans", "sans-serif";
+  font-size: 10;
+  -webkit-text-fill-color: #a78a7f;
+}
+
+.logo {
+  text-decoration: none;
+  font-family: "Noto Sans Bold", "sans-serif";
+  font-size: 25;
+  padding: 0;
+  margin: 0;
+  letter-spacing: -1.5px;
+  -webkit-text-fill-color: #1a202c;
+}
+
+.logo:hover {
+  text-decoration: underline;
+  -webkit-text-fill-color: #040507;
+}
+
+.nav-link {
+  text-decoration: none;
+  padding-left: 1svw;
+  font-family: "Work Sans", "sans-serif";
+  -webkit-text-fill-color: #f1bf98;
+}
+
+.navbar {
+  width: 100%;
+  backdrop-filter: blur(10px);
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  font-family: "Work Sans", "sans-serif";
+  -webkit-text-fill-color: #d19d75;
+}
