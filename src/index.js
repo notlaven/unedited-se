@@ -157,7 +157,8 @@ app.post(`/user/signup`, (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/search.html'));
+  
+  res.sendFile(path.join(__dirname, '/home.html'));
 });
 
 app.get('/api/js', (req, res) => {
@@ -170,8 +171,17 @@ app.get('/src/login', (req, res) => {
   res.sendFile(path.join(__dirname, '/login.js'))
 })
 
+app.get('/src/searchResults', (req, res) => {
+  res.set('Content-Type', 'text/js')
+  res.sendFile(path.join(__dirname, '/searchResults.js'))
+})
+
 app.get('/search', (req, res) => {
-  res.sendFile(path.join(__dirname, '/search.html'))
+  if (req.query == {}) {
+    res.sendFile(path.join(__dirname, '/search.html'))
+  } else {
+    res.sendFile(path.join(__dirname, '/searchResults.html'))
+  }
 })
 
 app.get('/styles.css', (req, res) => {
