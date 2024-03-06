@@ -82,19 +82,22 @@ app.get(`/api/search`, (req, res) => {
 
   if (jsonData.some((u) => u.token === token)) {
       try {
-          const searchQuery = req.query;
-
-          const filteredSearch = searchList.filter((info) => {
-              let isValid = true;
-              for (key in searchQuery) {
-                  if (Array.isArray(info[key])) {
-                      isValid = isValid && info[key].some((value) => searchQuery[key].includes(value.toLowerCase()));
-                  } else {
-                      isValid = isValid && info[key] == searchQuery[key];
-                  }
-              }
-              return isValid;
-          });
+        const searchQuery = req.query;
+        // Decode the search query to handle spaces properly
+        for (let key in searchQuery) {
+          searchQuery[key] = decodeURIComponent(searchQuery[key]);
+        }
+        const filteredSearch = searchList.filter((info) => {
+          let isValid = true;
+          for (key in searchQuery) {
+            if (Array.isArray(info[key])) {
+              isValid = isValid && info[key].some((value) => searchQuery[key].includes(value.toLowerCase()));
+            } else {
+              isValid = isValid && info[key] == searchQuery[key];
+            }
+          }
+          return isValid;
+        });
 
           const priorityQueue = new PriorityQueue();
 

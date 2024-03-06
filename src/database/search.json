@@ -1,14 +1,68 @@
 [
-    {
-        "keywords": ["Chromium based browser", "Arc", "browser"],
-        "title": "Arc Browser",
-        "description": "Website",
-        "url": "https://www.arc.net/"
-    },
-    {
-        "keywords": ["AI", "perplexity", "arc"],
-        "title": "Perplexity AI",
-        "description": "AI Model",
-        "url": "https://www.perplexity.ai/"
-    }
+  {
+    "keywords": ["Chromium based browser", "Arc", "browser"],
+    "title": "Arc Browser",
+    "description": "Website",
+    "url": "https://www.arc.net/"
+  },
+  {
+    "keywords": ["AI", "perplexity", "arc"],
+    "title": "Perplexity AI",
+    "description": "AI Model",
+    "url": "https://www.perplexity.ai/"
+  },
+  {
+    "keywords": ["JavaScript", "React", "library"],
+    "title": "React",
+    "description": "JavaScript library",
+    "url": "https://reactjs.org/"
+  },
+  {
+    "keywords": ["Node.js", "JavaScript", "runtime"],
+    "title": "Node.js",
+    "description": "JavaScript runtime",
+    "url": "https://nodejs.org/"
+  },
+  {
+    "keywords": ["Python", "programming", "language"],
+    "title": "Python",
+    "description": "Programming language",
+    "url": "https://www.python.org/"
+  },
+  {
+    "keywords": ["Java", "programming", "language"],
+    "title": "Java",
+    "description": "Programming language",
+    "url": "https://www.java.com/"
+  },
+  {
+    "keywords": ["C++", "programming", "language"],
+    "title": "C++",
+    "description": "Programming language",
+    "url": "https://www.cplusplus.com/"
+  },
+  {
+    "keywords": ["HTML", "CSS", "web"],
+    "title": "HTML and CSS",
+    "description": "Web development",
+    "url": "https://www.w3schools.com/html/"
+  },
+  {
+    "keywords": ["SQL", "database", "language"],
+    "title": "SQL",
+    "description": "Database language",
+    "url": "https://www.sql.com/"
+  },
+  {
+    "keywords": ["Linux", "operating", "system"],
+    "title": "Linux",
+    "description": "Operating system",
+    "url": "https://www.linux.org/"
+  },
+  {
+    "keywords": ["Youtube", "YouTube", "Videos"],
+    "title": "YouTube",
+    "description": "YouTube!",
+    "url": "https://www.youtube.com/"
+  }
 ]
