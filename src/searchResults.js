@@ -1,5 +1,6 @@
 const cookieName = 'query';
 const cookies = document.cookie.split('; ');
+const query = cookies[0].split('=')[1];
 for (let i = 0; i < cookies.length; i++) {
   const cookie = cookies[i];
   if (cookie.startsWith(cookieName + '=')) {
@@ -20,9 +21,8 @@ const getData = async (url = "") => {
   return response.json();
 };
 
-console.log(this.query)
-console.log(this.cookies)
-console.log(document.cookie.split('; '))
+console.log(query)
+console.log(cookies)
 
 const url = "http://localhost:3000/api/search?" + document.cookie;
 
@@ -39,6 +39,7 @@ function insertData(jsonData) {
   const dataContainer = document.getElementById("data-container");
   console.log(jsonData)
   console.log(jsonData.data)
+  document.querySelector('title').textContent = `Search - ${query}`
   if (jsonData.data.length === 0) {
     const htmlContent = `
         <h2>An error occurred</h2>
@@ -50,7 +51,6 @@ function insertData(jsonData) {
         <h2>Title: ${jsonData.data[0].title}</h2>
         <p>Description: ${jsonData.data[0].description}</p>
         <p>URL: <a href="${jsonData.data[0].url}">${jsonData.data[0].title}</a></p>
-        <title>Search - ${this.query}</title>
     `;
     dataContainer.innerHTML = htmlContent;
   }
