@@ -45,86 +45,81 @@ app.use(cookieParser());
 
 class PriorityQueue {
   constructor() {
-    this.items = [];
+      this.items = [];
   }
 
   enqueue(item, priority) {
-    let added = false;
-    for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].priority >= priority) {
-        this.items.splice(i, 0, { item, priority });
-        added = true;
-        break;
+      let added = false;
+      for (let i = 0; i < this.items.length; i++) {
+          if (this.items[i].priority >= priority) {
+              this.items.splice(i, 0, { item, priority });
+              added = true;
+              break;
+          }
       }
-    }
-    if (!added) {
-      this.items.push({ item, priority });
-    }
+      if (!added) {
+          this.items.push({ item, priority });
+      }
   }
 
   dequeue() {
-    return this.items.shift().item;
+      return this.items.shift().item;
   }
 
   isEmpty() {
-    return this.items.length === 0;
+      return this.items.length === 0;
   }
 }
 
 const searchList = require(`./database/search.json`);
 
-app.get(`/api/search`, async (req, res) => {
+app.get(`/api/search`, (req, res) => {
   const token = req.cookies.token;
   console.log(token);
+
   const data = fs.readFileSync("src/database/users.json");
   const jsonData = JSON.parse(data);
+
   if (jsonData.some((u) => u.token === token)) {
-    try {
       try {
-        const searchQuery = req.query;
-        const filteredSearch = searchList.filter((info) => {
-          let isValid = true;
-          for (key in searchQuery) {
-            if (Array.isArray(info[key])) {
-              isValid =
-                isValid &&
-                info[key].some((value) =>
-                  searchQuery[key].includes(value.toLowerCase())
-                );
-            } else {
-              isValid = isValid && info[key] === searchQuery[key];
-            }
+          const searchQuery = req.query;
+
+          const filteredSearch = searchList.filter((info) => {
+              let isValid = true;
+              for (key in searchQuery) {
+                  if (Array.isArray(info[key])) {
+                      isValid = isValid && info[key].some((value) => searchQuery[key].includes(value.toLowerCase()));
+                  } else {
+                      isValid = isValid && info[key] == searchQuery[key];
+                  }
+              }
+              return isValid;
+          });
+
+          const priorityQueue = new PriorityQueue();
+
+          filteredSearch.forEach((result) => {
+              const priority = calculatePriority(result, searchQuery);
+              priorityQueue.enqueue(result, priority);
+          });
+
+          const searchResults = [];
+          while (!priorityQueue.isEmpty()) {
+              searchResults.push(priorityQueue.dequeue());
           }
-          return isValid;
-        });
 
-        const priorityQueue = new PriorityQueue();
-        filteredSearch.forEach((result) => {
-          const priority = calculatePriority(result, searchQuery);
-          priorityQueue.enqueue(result, priority);
-        });
+          const fuzzyResults = fuzzySearch(searchList, searchQuery.title.toLowerCase());
 
-        const searchResults = [];
-        while (!priorityQueue.isEmpty()) {
-          searchResults.push(priorityQueue.dequeue());
-        }
+          console.log(fuzzyResults);
+          console.log(searchResults);
+          console.log(filteredSearch);
 
-        const fuzzyResults = fuzzySearch(
-          searchList,
-          searchQuery[key].toLowerCase()
-        );
-        console.log(fuzzyResults);
-
-        res.json({ data: fuzzyResults });
+          res.send({ data: fuzzyResults });
       } catch (err) {
-        res.send(err);
+          res.send(err);
       }
-    } catch (err) {
-      res.send("You were not logged in");
-      console.log(err);
-    }
   } else {
-    res.send(`You are not logged in. Use /user/login to login`);
+      res.send(`You are not logged in. Use /user/login to login`);
   }
 });
 
@@ -180,6 +175,7 @@ app.get('/search', (req, res) => {
   if (req.query.title == "" || !req.query.title) {
     res.sendFile(path.join(__dirname, '/search.html'))
   } else if (req.query.title != "") {
+    res.cookie("title", req.query.title)
     res.sendFile(path.join(__dirname, '/searchResults.html'))
   }
 })
@@ -272,13 +268,11 @@ function calculatePriority(result, searchQuery) {
   let priority = 0;
   const title = result.title.toLowerCase();
   for (key in searchQuery) {
-    if (Array.isArray(result[key])) {
-      priority += result[key].filter((value) =>
-        searchQuery[key].includes(value.toLowerCase())
-      ).length;
-    } else {
-      priority += result[key] === searchQuery[key] ? 1 : 0;
-    }
+      if (Array.isArray(result[key])) {
+          priority += result[key].filter((value) => searchQuery[key].includes(value.toLowerCase())).length;
+      } else {
+          priority += result[key] === searchQuery[key] ? 1 : 0;
+      }
   }
   const distance = levenshteinDistance(title, searchQuery.title.toLowerCase());
   priority += 1 / (distance + 1);
@@ -286,16 +280,17 @@ function calculatePriority(result, searchQuery) {
 }
 
 function fuzzySearch(data, query) {
-  const threshold = 0.1;
+  const threshold = 1;
   const results = data.filter((item) => {
-    const similarity = calculateSimilarity(item[key], query);
-    const includesQuery = item[key].toLowerCase().includes(query.toLowerCase());
-    const isSimilar = similarity > threshold;
-    return includesQuery || isSimilar;
+      const similarity = calculateSimilarity(item[key], query);
+      const includesQuery = item[key].toLowerCase().includes(query.toLowerCase());
+      const isSimilar = similarity > threshold;
+      return includesQuery || isSimilar;
   });
-
   return results;
 }
+
+
 
 function calculateSimilarity(str1, str2) {
   const distance = levenshteinDistance(str1, str2);
