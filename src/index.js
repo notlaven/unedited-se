@@ -75,7 +75,6 @@ const searchList = require(`./database/search.json`);
 
 app.get(`/api/search`, (req, res) => {
   const token = req.cookies.token;
-  console.log(token);
 
   const data = fs.readFileSync("src/database/users.json");
   const jsonData = JSON.parse(data);
@@ -114,8 +113,6 @@ app.get(`/api/search`, (req, res) => {
           const fuzzyResults = fuzzySearch(searchList, searchQuery.title.toLowerCase());
 
           console.log(fuzzyResults);
-          console.log(searchResults);
-          console.log(filteredSearch);
 
           res.send({ data: fuzzyResults });
       } catch (err) {
@@ -162,6 +159,12 @@ app.get('/', (req, res) => {
 app.get('/api/js', (req, res) => {
   res.set('Content-Type', 'text/js')
   res.sendFile(path.join(__dirname, '/script.js'))
+})
+
+
+app.get('/src/search/js', (req, res) => {
+  res.set('Content-Type', 'text/js')
+  res.sendFile(path.join(__dirname, '/searchSuggestions.js'))
 })
 
 app.get('/src/login', (req, res) => {
@@ -268,7 +271,7 @@ app.listen(port, () => {
 });
 
 function calculatePriority(result, searchQuery) {
-  let priority = 0;
+  let priority = 1;
   const title = result.title.toLowerCase();
   for (key in searchQuery) {
       if (Array.isArray(result[key])) {
@@ -283,7 +286,7 @@ function calculatePriority(result, searchQuery) {
 }
 
 function fuzzySearch(data, query) {
-  const threshold = 1;
+  const threshold = 0.9;
   const results = data.filter((item) => {
       const similarity = calculateSimilarity(item[key], query);
       const includesQuery = item[key].toLowerCase().includes(query.toLowerCase());

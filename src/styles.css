@@ -82,3 +82,14 @@ ul {
   font-family: "Work Sans", "sans-serif";
   -webkit-text-fill-color: #d19d75;
 }
+
+.suggestions {
+  -webkit-text-fill-color: #d5cece;
+}
+
+.suggestions:hover {
+  cursor: none;
+  text-decoration: none;
+  font-family: "Work Sans", "sans-serif";
+  -webkit-text-fill-color: #f5f3f3;
+}

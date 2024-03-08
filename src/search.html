@@ -18,9 +18,15 @@
     <h1 class="search-h1">Search Engine</h1>
 
     <form action="/search" method="get">
-      <input type="search" name="title" placeholder="Search..." />
+      <input type="search" name="title" placeholder="Search..." id="searchInput"/>
       <button id="buttonSearch">Search</button>
     </form>
+    <div class="suggestions-div">
+      <ul id="suggestions" class="suggestions-ul">
+
+      </ul>
+    </div>
     <script src="./api/js"></script>
+    <script src="./src/search/js"></script>
   </body>
 </html>
