@@ -1,18 +1,19 @@
 @font-face {
-  font-family: "Work Sans";
+  src: url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
-  src: url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap") format("truetype");
+  font-style: normal;
 }
 @font-face {
-  font-family: "Work Sans Bold";
+  font-family: "Work Sans Bold", sans-serif;
   font-weight: 700;
-  src: url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap')
-    format("truetype");
+  src: url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap");
 }
 @font-face {
-  font-family: "Noto Sans Bold";
-  src: url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap')
-    format("truetype");
+  font-family: "Noto Sans Bold", sans-serif;
+  font-weight: 700;
+  src: url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap");
 }
 
 body {
@@ -22,17 +23,16 @@ body {
 
 h1 {
   -webkit-text-fill-color: #a78a7f;
-  font-family: "Work Sans Bold", "sans-serif";
+  font-family: "Work Sans Bold", sans-serif;
 }
 
 h2 {
-  font-family: "Work Sans", "sans-serif";
+  font-family: "Work Sans", sans-serif;
 }
 
 ul {
   list-style-type: none;
   margin: 0;
-  padding: 0;
 }
 
 .homepage-content {
@@ -45,14 +45,14 @@ ul {
 }
 
 .homepage-text-first {
-  font-family: "Work Sans", "sans-serif";
+  font-family: "Work Sans", sans-serif;
   font-size: 10;
   -webkit-text-fill-color: #a78a7f;
 }
 
 .logo {
   text-decoration: none;
-  font-family: "Noto Sans Bold", "sans-serif";
+  font-family: "Noto Sans Bold", sans-serif;
   font-size: 25;
   padding: 0;
   margin: 0;
@@ -68,7 +68,7 @@ ul {
 .nav-link {
   text-decoration: none;
   padding-left: 1svw;
-  font-family: "Work Sans", "sans-serif";
+  font-family: "Work Sans", sans-serif;
   -webkit-text-fill-color: #f1bf98;
 }
 
@@ -79,17 +79,32 @@ ul {
 
 .nav-link:hover {
   text-decoration: underline;
-  font-family: "Work Sans", "sans-serif";
+  font-family: "Work Sans", sans-serif;
   -webkit-text-fill-color: #d19d75;
 }
 
 .suggestions {
-  -webkit-text-fill-color: #d5cece;
+  -webkit-text-fill-color: #242222;
+  font-family: "Work Sans", sans-serif;
+  text-decoration: none;
+  padding-top: 1svh;
 }
 
 .suggestions:hover {
-  cursor: none;
-  text-decoration: none;
-  font-family: "Work Sans", "sans-serif";
-  -webkit-text-fill-color: #f5f3f3;
+  font-family: "Work Sans Bold", sans-serif;
+  -webkit-text-fill-color: #121212;
+}
+
+.buttonSearch:hover {
+  cursor: pointer;
+  background-color: #eee5e9;
+  border: none;
+  height: 3svh;
+  width: 3svw;
+}
+
+.search {
+  height: 4svh;
+  width: 12svh;
+  border-radius: none;
 }

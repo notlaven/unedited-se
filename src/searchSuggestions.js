@@ -10,15 +10,15 @@ async function addToSuggestions(jsonData) {
     const a = document.createElement("a");
     a.textContent = data.title
     a.href = "http://localhost:3000/search?title=" + data.title
-    a.id = "suggestions"
-    li.id = "suggestions"
+    a.className = "suggestions"
+    li.className = "suggestions"
     li.appendChild(a)
     suggestionsDiv.appendChild(li);
   });
 }
 
 async function filterSuggestions() {
-  if (searchInput.value.length == 1 ?? 0) {
+  if (searchInput.value.length == 1 || 0) {
     suggestionsDiv.innerHTML = "";
   } else if (searchInput.value.length > 1) {
     const response = await getData(
@@ -35,3 +35,4 @@ async function filterSuggestions() {
 }
 
 searchInput.addEventListener("keyup", filterSuggestions);
+searchInput.addEventListener("waiting", filterSuggestions);
